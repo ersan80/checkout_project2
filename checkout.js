@@ -6,18 +6,20 @@ window.addEventListener("load", ()=>{
     localStorage.setItem("shippingPrice", shippingPrice);
     sessionStorage.setItem("taxRate", taxRate);
     sessionStorage.setItem("shippingPrice", shippingPrice);
-    calculateCartTotal()
+    //calculateCartTotal()
 });
 
 //capturing
 let productsDiv = document.querySelector(".products");
-productsDiv.addEventListener("click", (e)=>{
+console.log(productsDiv)
+productsDiv.addEventListener("click", (e) => {
+    
     let quantityP = e.target.parentElement.parentElement.querySelector("#product-quantity");
-    // console.log(quantityP);
+     console.log(quantityP);
     // console.log(event.target);
     //minus buttons
     if (e.target.classList.contains("fa-minus") || e.target == quantityP.parentElement.firstElementChild) {
-        if (quantityP.innerText > 1) {
+        if (quantityP.innerText > 0) {
             quantityP.innerText--;
             //calculate Product and Cart Total
             calculateProductTotal(quantityP);
@@ -72,7 +74,7 @@ const calculateProductTotal = (quantityP) =>{
 const calculateCartTotal = () =>{
 
     let productTotalPriceDivs = document.querySelectorAll(".product-line-price");
-    // console.log(productTotalPriceDivs);
+     console.log(productTotalPriceDivs);
     let subtotal = 0;
     productTotalPriceDivs.forEach(eachProductTotalPriceDiv=>{
         subtotal += parseFloat(eachProductTotalPriceDiv.innerText)
@@ -83,8 +85,8 @@ const calculateCartTotal = () =>{
     let shipping = (subtotal > 0 ? parseFloat(localStorage.getItem("shippingPrice")) :0);
     console.log(shipping);
     let cartTotal = subtotal + taxPrice + shipping;
-    console.log(cartTotal);
-
+    console.log(cartTotal); 
+    console.log(document.querySelector("#cart-subtotal :nth-child(2)"));
     document.querySelector("#cart-subtotal p:nth-child(2)").innerText = subtotal.toFixed(2);
     document.querySelector("#cart-tax p:nth-child(2)").innerText = taxPrice.toFixed(2);
     document.querySelector("#cart-shipping p:nth-child(2)").innerText = shipping.toFixed(2);
